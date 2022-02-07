@@ -36,7 +36,7 @@ public class Tela extends JFrame {
 		
 		setTitle("Calculadora"); // Titulo da calculadora
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Se não tiver esse método, mesmo que você aperte x, ele vai está exercutando a calculadora.
-		setSize(322, 499); // Tamanho da janela
+		setSize(323, 385); // Tamanho da janela
 		setLocationRelativeTo(null); // A calculadora abre no meio da tela.
 		setResizable(false); // Método para 
 		setVisible(true); // Método para ficar visivel, caso for false a janela não é mostrada.
@@ -44,7 +44,7 @@ public class Tela extends JFrame {
 		
 		/*Janela para fazer os calculos*/
 		
-		janela.setBounds(100, 50, 300, 50);
+		janela.setBounds(2, 10, 303, 80);
 		janela.setEnabled(false);/*Serve para o bloquear a tela e não possa ser clicada*/
 		add(janela);
 		
