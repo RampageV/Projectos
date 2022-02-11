@@ -4,7 +4,6 @@ import java.awt.Button;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
@@ -32,53 +31,133 @@ public class Tela extends JFrame {
 	Button B_mais = new Button("+");
 	Button B_menos = new Button("-");
 	JTextField janela = new JTextField();
+	int valor1, valor2; // Variaveis para números inteiros
+	Double valor3, valor4; // Variaveis para números com casas decimais
+	String Operacao;
 
 	public Tela() {
 
 		/* Criação da Janela */
-
 		setTitle("Calculadora"); // Titulo da calculadora
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Se não tiver esse método, mesmo que você aperte x, ele vai
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Se não tiver esse método, mesmo que você aperte x, ele vai //
 														// está exercutando a calculadora.
 		setSize(323, 385); // Tamanho da janela
 		setLocationRelativeTo(null); // A calculadora abre no meio da tela.
 		setResizable(false); // Método para
 		setVisible(true); // Método para ficar visivel, caso for false a janela não é mostrada.
-		setLayout(null); // Permite setar a forma como os componentes vão se ajustar na tela ao
-							// redimensiona-la.
+		setLayout(null); /*
+							 * Permite setar a forma como os componentes vão se ajustar na tela ao
+							 * redimensiona-la.
+							 */
 
 		/* Janela para fazer os calculos */
-
 		janela.setBounds(2, 10, 303, 80);
 		janela.setFont(new Font("Serif", ABORT, 50));
 		janela.setEnabled(false);/* Serve para o bloquear a tela e não possa ser clicada */
 		add(janela);
 
 		/* Chamada dos botões com seus métodos */
-
 		B_Ac.setBounds(2, 100, 64, 41);
 		add(B_Ac);
+		B_Ac.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				LimparTela();
+
+			}
+		});
 
 		B_mais.setBounds(240, 200, 64, 41);
 		add(B_mais);
+		B_mais.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				valor1 = Integer.parseInt(janela.getText());
+				LimparTela();
+				Operacao = "Mais";
+			}
+		});
+
+		B_menos.setBounds(240, 150, 64, 41);
+		add(B_menos);
+		B_menos.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				valor1 = Integer.parseInt(janela.getText());
+				LimparTela();
+				Operacao = "Menos";
+			}
+		});
 		B_porcentagem.setBounds(80, 100, 64, 41);
 		add(B_porcentagem);
 
 		B_dividir.setBounds(160, 100, 64, 41);
 		add(B_dividir);
+		B_dividir.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				valor3 = Double.parseDouble(janela.getText());
+				Operacao = "Dividir";
+
+			}
+		});
 
 		B_multiplica.setBounds(240, 100, 64, 41);
 		add(B_multiplica);
+		B_multiplica.addActionListener(new ActionListener() {
 
-		B_Ponto.setBounds(160, 300, 64, 41);
-		add(B_Ponto);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				valor3 = Double.parseDouble(janela.getText());
+				LimparTela();
+				Operacao = "Multiplicacao";
+
+			}
+		});
 
 		B_igual.setBounds(240, 250, 64, 90);
 		add(B_igual);
+		B_igual.addActionListener(new ActionListener() {
 
-		B_menos.setBounds(240, 150, 64, 41);
-		add(B_menos);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				valor2 = Integer.parseInt(janela.getText());
+				valor4 = Double.parseDouble(janela.getText());
+
+				if (Operacao == "Mais") {
+
+					janela.setText(String.valueOf(valor1 + valor2));
+
+				} else if (Operacao == "Menos") {
+
+					janela.setText(String.valueOf(valor1 - valor2));
+
+				} else if (Operacao == "Multiplicacao") {
+
+					janela.setText(String.valueOf(valor3 * valor4));
+
+				} else if (Operacao == "Dividir") {
+					janela.setText(String.valueOf(valor3 / valor4));
+				}
+
+			}
+		});
+
+		B_Ponto.setBounds(160, 300, 64, 41);
+		add(B_Ponto);
+		B_Ponto.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
 
 		botao9.setBounds(160, 150, 64, 41);
 		add(botao9);
@@ -86,6 +165,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				digitaNumero("9");
 			}
 		});
@@ -96,6 +176,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				digitaNumero("8");
 
 			}
@@ -107,6 +188,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				digitaNumero("7");
 			}
 		});
@@ -151,6 +233,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				digitaNumero("3");
 
 			}
@@ -162,6 +245,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				digitaNumero("2");
 
 			}
@@ -173,6 +257,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				digitaNumero("1");
 			}
 		});
@@ -183,15 +268,19 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				digitaNumero("0");
 
 			}
 		});
-
 	}
 
-	private void digitaNumero(String numero) {
+	private void digitaNumero(String numero) { // Método criado para a calculadora digitar um número.
 		janela.setText(janela.getText().concat(numero));
+	}
+
+	private void LimparTela() { // Método criado para limpar a tela da calculadora.
+		janela.setText("");
 	}
 
 }
