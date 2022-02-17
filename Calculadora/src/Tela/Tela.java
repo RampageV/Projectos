@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 public class Tela extends JFrame {
 
@@ -23,16 +24,15 @@ public class Tela extends JFrame {
 	Button botao8 = new Button("8");
 	Button botao9 = new Button("9");
 	Button B_igual = new Button("=");
-	Button B_Virgula = new Button(",");
+	Button B_Virgula = new Button(".");
 	Button B_Ac = new Button("AC");
-	Button B_porcentagem = new Button("%");
+	Button B_Back = new Button("BackSpace");
 	Button B_dividir = new Button("/");
 	Button B_multiplica = new Button("X");
 	Button B_mais = new Button("+");
 	Button B_menos = new Button("-");
 	JTextField janela = new JTextField();
-	int valor1, valor2; // Variaveis para números inteiros
-	Double valor3, valor4; // Variaveis para números com casas decimais
+	Double valor1, valor2; // Variaveis para números inteiros
 	String Operacao;
 
 	public Tela() {
@@ -52,11 +52,10 @@ public class Tela extends JFrame {
 
 		/* Janela para fazer os calculos */
 		janela.setBounds(2, 10, 303, 80);
-		janela.setText("0,00");
+		janela.setText("0.00");
 		janela.setFont(new Font("Serif", ABORT, 50));
 		janela.setEnabled(false);/* Serve para o bloquear a tela e não possa ser clicada */
 		add(janela);
-		
 
 		/* Chamada dos botões com seus métodos */
 		B_Ac.setBounds(2, 100, 64, 41);
@@ -65,8 +64,28 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				LimparTela();
+			}
+		});
+
+		B_Back.setBounds(80, 100, 66, 41);
+		add(B_Back);
+		B_Back.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				String str = janela.getText(); // Pega o que tem no getText é colocar na variavel str
+				StringBuilder w = new StringBuilder(str); // StringBuilder é uma classe para manipular string
+				str = String.valueOf(w.deleteCharAt(str.length() - 1)); // Apaga ultima string na posição -1 ou em
+																		// outras palavras a ultima.
+
+				if (str.length() == 0) { // Se caso
+					janela.setText("0.00");
+				} else {
+					janela.setText(str);
+				}
 			}
 		});
 
@@ -76,7 +95,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				valor1 = Integer.parseInt(janela.getText());
+				valor1 = Double.parseDouble(janela.getText());
 				LimparTela();
 				Operacao = "Mais";
 			}
@@ -88,12 +107,11 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				valor1 = Integer.parseInt(janela.getText());
+				valor1 = Double.parseDouble(janela.getText());
+				LimparTela();
 				Operacao = "Menos";
 			}
 		});
-		B_porcentagem.setBounds(80, 100, 64, 41);
-		add(B_porcentagem);
 
 		B_dividir.setBounds(160, 100, 64, 41);
 		add(B_dividir);
@@ -101,7 +119,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				valor3 = Double.parseDouble(janela.getText());
+				valor1 = Double.parseDouble(janela.getText());
 				LimparTela();
 				Operacao = "Dividir";
 
@@ -114,7 +132,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				valor3 = Double.parseDouble(janela.getText());
+				valor1 = Double.parseDouble(janela.getText());
 				LimparTela();
 				Operacao = "Multiplicacao";
 
@@ -128,28 +146,25 @@ public class Tela extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				valor2 = Integer.parseInt(janela.getText());
-				valor4 = Double.parseDouble(janela.getText());
+				valor2 = Double.parseDouble(janela.getText());
 
 				if (Operacao == "Mais") {
 
-					janela.setText(String.valueOf(valor1 + valor2)); // O valueOf está transformando o valor em uma
-																		// string
+					janela.setText(TirandoZero(valor1 + valor2));
 
 				} else if (Operacao == "Menos") {
 
-					janela.setText(String.valueOf(valor1 - valor2));
+					janela.setText(TirandoZero(valor1 - valor2));
 
 				} else if (Operacao == "Multiplicacao") {
 
-					janela.setText(String.valueOf(valor3 * valor4));
+					janela.setText(TirandoZero(valor1 * valor2));
 
 				} else if (Operacao == "Dividir") {
-					janela.setText(String.valueOf(valor3 / valor4));
-					
+					janela.setText(TirandoZero(valor1 / valor2));
+
 				}
 
-				
 			}
 		});
 
@@ -159,7 +174,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-              digitaNumero(",");
+				digitaNumero(".");
 			}
 		});
 
@@ -169,9 +184,9 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-		
+
 				digitaNumero("9");
-		
+
 			}
 		});
 
@@ -181,7 +196,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-		
+
 				digitaNumero("8");
 
 			}
@@ -193,7 +208,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
+
 				digitaNumero("7");
 			}
 		});
@@ -204,7 +219,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
+
 				digitaNumero("6");
 
 			}
@@ -216,7 +231,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-		
+
 				digitaNumero("5");
 			}
 		});
@@ -227,7 +242,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
+
 				digitaNumero("4");
 			}
 		});
@@ -238,7 +253,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-		
+
 				digitaNumero("3");
 
 			}
@@ -250,7 +265,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
+
 				digitaNumero("2");
 
 			}
@@ -262,7 +277,7 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
+
 				digitaNumero("1");
 			}
 		});
@@ -273,21 +288,40 @@ public class Tela extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
+
 				digitaNumero("0");
 
 			}
 		});
 	}
 
+	private String TirandoZero(Double calculo) { // Método criado para tira os 0 dos calculos
+
+		String retorno = "";
+
+		retorno = Double.toString(calculo); // Convertendo double para String
+
+		if (calculo % 1 == 0) {// Verifica se numero tem o resto igual a 0
+			retorno = retorno.substring(0, retorno.length() - 2); // Retorne a sequência da string a partir de um
+																	// determinado ponto, nesse caso vai do 0 até -2 que
+																	// esse menos dois seria o 0 e a ","
+		}
+
+		return retorno;
+
+	}
+
 	private void digitaNumero(String numero) {
-		
-		if (janela.getText().equals("0,00")) { //Caso seja primeira digitação, ele já vai amazenar o numero digitado na variavel "numero"
-			janela.setText(numero);	
-			
+
+		if (janela.getText().equals("0.00")) { // Caso seja primeira digitação, ele já vai amazenar o numero digitado na
+												// variavel "numero"
+			janela.setText(numero);
+
 		} else {
-			if (numero.equals(",") && janela.getText().contains(",")) { //Verificar se já tem uma virgula ou se está digitando uma virgula, caso tenha ele não digita outra virgula
-                 
+			if (numero.equals(".") && janela.getText().contains(".")) { // Verificar se já tem uma virgula ou se está
+																		// digitando uma virgula, caso tenha ele não
+																		// digita outra virgula
+
 			} else {
 				janela.setText(janela.getText().concat(numero));
 			}
@@ -295,7 +329,7 @@ public class Tela extends JFrame {
 	}
 
 	private void LimparTela() {// Método criado para limpar a tela da calculadora.
-	janela.setText("");
+		janela.setText("");
 	}
 
 }
