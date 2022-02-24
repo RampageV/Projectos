@@ -18,8 +18,8 @@ Caso esteja usando Eclipse para projetos Java, faça da seguinte forma.
 
 # Projetos em andamento ou completos
 
-1. ##### Calculadora
-![Calculadora](https://user-images.githubusercontent.com/88062739/155040549-cb86aae0-8aeb-4b02-b497-841e8550dd71.png)
+1. ##### Calculadora(em Java)
+   ![Calculadora](https://user-images.githubusercontent.com/88062739/155040549-cb86aae0-8aeb-4b02-b497-841e8550dd71.png)
 
    
 
