@@ -35,6 +35,7 @@ public class Tela extends JFrame {
 	Double valor1, valor2; // Variaveis para números inteiros
 	String Operacao;
 
+	
 	public Tela() {
 
 		/* Criação da Janela */
